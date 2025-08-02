@@ -1,8 +1,15 @@
 package com.rubenialima.starwarsplanet_api.domain;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "planets")
 public class Planet {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String name;
     private String climate;
     private String terrain;
