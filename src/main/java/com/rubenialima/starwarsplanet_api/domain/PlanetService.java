@@ -5,5 +5,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlanetService {
 
-    public Planet create(Planet planet)
+    private PlanetRepository planetRepository;
+
+    public Planet create(Planet planet) {
+        return null;
+    }
 }
