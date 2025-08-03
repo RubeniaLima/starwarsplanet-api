@@ -1,9 +1,21 @@
 package com.rubenialima.starwarsplanet_api.web;
 
+import com.rubenialima.starwarsplanet_api.domain.Planet;
+import com.rubenialima.starwarsplanet_api.domain.PlanetService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("planets")
 public class PlanetController {
+
+    private PlanetService planetService;
+
+    @PostMapping
+    public ResponseEntity<Planet> create(@RequestBody Planet planet){
+
+    }
 }
