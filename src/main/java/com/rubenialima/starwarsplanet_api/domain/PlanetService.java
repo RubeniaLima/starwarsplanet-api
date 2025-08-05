@@ -7,7 +7,11 @@ public class PlanetService {
 
     private PlanetRepository planetRepository;
 
+    public PlanetService(PlanetRepository planetRepository) {
+        this.planetRepository = planetRepository;
+    }
+
     public Planet create(Planet planet) {
-        return null;
+        return planetRepository.save(planet);
     }
 }
