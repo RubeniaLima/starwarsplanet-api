@@ -1,6 +1,7 @@
 package com.rubenialima.starwarsplanet_api.domain;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 @Table(name = "planets")
@@ -50,5 +51,9 @@ public class Planet {
 
     public void setTerrain(String terrain) {
         this.terrain = terrain;
+    }
+    
+    public boolean equals(Object obj){
+        return  EqualsBuilder.reflectionEquals(obj, this);
     }
 }
