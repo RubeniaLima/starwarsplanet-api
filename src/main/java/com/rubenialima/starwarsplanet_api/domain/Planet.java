@@ -52,7 +52,7 @@ public class Planet {
     public void setTerrain(String terrain) {
         this.terrain = terrain;
     }
-    
+
     public boolean equals(Object obj){
         return  EqualsBuilder.reflectionEquals(obj, this);
     }
