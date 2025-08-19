@@ -1,6 +1,10 @@
 package com.rubenialima.starwarsplanet_api.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -10,11 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = PlanetService.class)
+
+@ExtendWith(MockitoExtension.class)
 public class PlanetServiceTest {
-    @Autowired
+    @InjectMocks
     PlanetService planetService;
-    @MockitoBean
+    @Mock
     private PlanetRepository planetRepository;
 
     @Test
