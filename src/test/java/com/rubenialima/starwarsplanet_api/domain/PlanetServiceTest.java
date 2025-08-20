@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.INVALID_PLANET;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
@@ -31,6 +32,6 @@ public class PlanetServiceTest {
 
     @Test
     public void createPlanet_WithInvalidData_ThrowsException(){
-        planetService.create(INVALID_PLANET)
+        planetService.create(INVALID_PLANET);
     }
 }
