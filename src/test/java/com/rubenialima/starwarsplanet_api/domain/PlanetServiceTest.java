@@ -28,4 +28,9 @@ public class PlanetServiceTest {
         Planet sut = planetService.create(PLANET);
         assertThat(sut).isEqualTo(PLANET);
     }
+
+    @Test
+    public void createPlanet_WithInvalidData_ThrowsException(){
+        planetService.create(INVALID_PLANET)
+    }
 }
