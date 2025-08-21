@@ -13,6 +13,7 @@ import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.INVALID_
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 
@@ -32,6 +33,8 @@ public class PlanetServiceTest {
 
     @Test
     public void createPlanet_WithInvalidData_ThrowsException(){
-        planetService.create(INVALID_PLANET);
+        when(planetRepository.save(INVALID_PLANET)).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(()-> planetService.create(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
     }
 }
