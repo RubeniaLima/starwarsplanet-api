@@ -1,15 +1,30 @@
 package com.rubenialima.starwarsplanet_api.domain;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
+@DataJpaTest
 public class PlanetRepositoryTest {
 
-    PlanetRepository planetRepository;
+    @Autowired
+     private PlanetRepository planetRepository;
+    @Autowired
+    private TestEntityManager testEntityManager;
+
     @Test
     public void createPlanet_WithValidData_ReturnsPlanet(){
-        planetRepository.save(PLANET);
+       Planet planet= planetRepository.save(PLANET);
+        Planet sut = testEntityManager.find(Planet.class,planet.getId());
+
+        assertThat(sut).isNotNull();
+        assertThat(sut.getName()).isEqualTo(PLANET.getName());
+        assertThat(sut.getClimate()).isEqualTo(PLANET.getClimate());
+        assertThat(sut.getTerrain()).isEqualTo(PLANET.getTerrain());
     }
 }
