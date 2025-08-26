@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 
 @DataJpaTest
@@ -27,4 +28,14 @@ public class PlanetRepositoryTest {
         assertThat(sut.getClimate()).isEqualTo(PLANET.getClimate());
         assertThat(sut.getTerrain()).isEqualTo(PLANET.getTerrain());
     }
+
+    @Test
+    public void createPlanet_WithInvalidData_ThrowsException(){
+        Planet emptyPlanet= new Planet();
+        Planet invalidPlanet= new Planet("","","");
+
+        assertThatThrownBy(()->planetRepository.save(emptyPlanet));
+        assertThatThrownBy(()->planetRepository.save(invalidPlanet));
+    }
+
 }
