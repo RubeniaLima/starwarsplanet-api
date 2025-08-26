@@ -11,8 +11,13 @@ public class Planet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String climate;
+    
+    @Column(nullable = false)
     private String terrain;
 
     public Planet(String name, String climate, String terrain) {
