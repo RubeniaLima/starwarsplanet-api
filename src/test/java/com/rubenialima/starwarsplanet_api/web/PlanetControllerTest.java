@@ -12,10 +12,12 @@ import com.rubenialima.starwarsplanet_api.domain.PlanetService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
-
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.net.URI;
 
 @WebMvcTest(PlanetController.class)
@@ -33,8 +35,12 @@ public class PlanetControllerTest {
     @Test
     public void createPlanet_WithValidData_ReturnsCreated() throws Exception {
         when(planetService.create(PLANET)).thenReturn(PLANET);
-        mockMvc.perform(post("/planets").content(objectMapper.writeValueAsString(PLANET)))
+
+        mockMvc
+                .perform(
+                        post("/planets").content(objectMapper.writeValueAsString(PLANET))
+                                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect((ResultMatcher) jsonPath("$").value(PLANET));
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(PLANET));
     }
 }
