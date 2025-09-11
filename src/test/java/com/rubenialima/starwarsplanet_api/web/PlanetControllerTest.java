@@ -52,11 +52,13 @@ public class PlanetControllerTest {
 
         mockMvc
                 .perform(
-                        post("/planets").content(objectMapper.writeValueAsString(PLANET))
+                        post("/planets").content(objectMapper.writeValueAsString(emptyPlanet))
                                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").value(PLANET));
-
-
+                .andExpect(status().isUnprocessableEntity());
+        mockMvc
+                .perform(
+                        post("/planets").content(objectMapper.writeValueAsString(invalidPlanet))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity());
     }
 }
