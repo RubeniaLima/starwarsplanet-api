@@ -2,6 +2,8 @@ package com.rubenialima.starwarsplanet_api.domain;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PlanetService {
 
@@ -15,4 +17,7 @@ public class PlanetService {
         return planetRepository.save(planet);
     }
 
+    public Optional<Planet> get(Long id) {
+        return planetRepository.findById(id);
+    }
 }
