@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import java.util.Optional;
+
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.INVALID_PLANET;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 
@@ -36,5 +39,15 @@ public class PlanetServiceTest {
         when(planetRepository.save(INVALID_PLANET)).thenThrow(RuntimeException.class);
 
         assertThatThrownBy(()-> planetService.create(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    public void getPlanet_ByExistingId_ReturnsPlanet(){
+        when(planetRepository.findById(anyLong())).thenReturn(Optional.of(PLANET));
+        Optional<Planet> sut = planetService.get(1L);
+
+        assertThat(sut).isNotEmpty();
+        assertThat(sut.get()).isEqualTo(PLANET);
+
     }
 }
