@@ -55,7 +55,6 @@ public class PlanetServiceTest {
         when(planetRepository.findById(1L)).thenReturn(Optional.empty());
         Optional<Planet> sut = planetService.get(1L);
 
-        assertThat(sut).isNotEmpty();
-
+        assertThat(sut).isEmpty();
     }
 }
