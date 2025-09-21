@@ -57,4 +57,9 @@ public class PlanetServiceTest {
 
         assertThat(sut).isEmpty();
     }
+
+    @Test
+    public void getPlanet_ByExistingName_ReturnsPlanet(){
+
+    }
 }
