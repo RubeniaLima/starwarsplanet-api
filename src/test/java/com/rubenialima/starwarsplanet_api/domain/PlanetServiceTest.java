@@ -62,4 +62,9 @@ public class PlanetServiceTest {
     public void getPlanet_ByExistingName_ReturnsPlanet(){
 
     }
+
+    @Test
+    public void getPlanet_ByUnexistingName_ReturnsEmpty(){
+
+    }
 }
