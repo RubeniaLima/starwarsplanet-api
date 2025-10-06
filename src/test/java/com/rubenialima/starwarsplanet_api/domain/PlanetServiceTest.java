@@ -7,8 +7,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.INVALID_PLANET;
@@ -75,5 +78,25 @@ public class PlanetServiceTest {
         when(planetRepository.findByName(name)).thenReturn(Optional.empty());
         Optional<Planet> sut = planetService.getByName(name);
         assertThat(sut).isEmpty();
+    }
+
+    @Test
+    public void listPlanets_ReturnsAllPlanets(){
+        List<Planet> planets = new ArrayList<>() {
+            {
+                add(PLANET);            }
+        };
+        Example<Planet> query = QueryBuilder.makeQuery(new Planet(PLANET.getClimate(),PLANET.getTerrain()));
+        when(planetRepository.findAll(query)).thenReturn(planets);
+
+        List<Planet> sut =planetService.list(PLANET.getTerrain(),PLANET.getClimate());
+        assertThat(sut).isNotEmpty();
+        assertThat(sut).hasSize(1);
+        assertThat(sut).isEqualTo(PLANET);
+    }
+
+    @Test
+    public void listPlanets_ReturnsNoPlanets(){
+
     }
 }
