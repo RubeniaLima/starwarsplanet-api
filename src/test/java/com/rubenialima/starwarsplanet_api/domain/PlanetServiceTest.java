@@ -11,6 +11,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -97,6 +99,9 @@ public class PlanetServiceTest {
 
     @Test
     public void listPlanets_ReturnsNoPlanets(){
+        when(planetRepository.findAll((Example<Planet>) any())).thenReturn(Collections.emptyList());
+        List<Planet> sut = planetService.list(PLANET.getTerrain(),PLANET.getClimate());
 
+        assertThat(sut).isEmpty();
     }
 }
