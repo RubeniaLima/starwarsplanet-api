@@ -92,7 +92,7 @@ public class PlanetServiceTest {
         List<Planet> sut =planetService.list(PLANET.getTerrain(),PLANET.getClimate());
         assertThat(sut).isNotEmpty();
         assertThat(sut).hasSize(1);
-        assertThat(sut).isEqualTo(PLANET);
+        assertThat(sut.get(0)).isEqualTo(PLANET);
     }
 
     @Test
