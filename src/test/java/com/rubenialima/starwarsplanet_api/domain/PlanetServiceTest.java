@@ -19,6 +19,7 @@ import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.INVALID_
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -103,5 +104,11 @@ public class PlanetServiceTest {
         List<Planet> sut = planetService.list(PLANET.getTerrain(),PLANET.getClimate());
 
         assertThat(sut).isEmpty();
+    }
+
+    @Test
+    public void removePlanet_WithExistingId_doesNotThrowAnyException(){
+        assertThatCode(()-> planetService.remove(1L)).doesNotThrowAnyException();
+
     }
 }
