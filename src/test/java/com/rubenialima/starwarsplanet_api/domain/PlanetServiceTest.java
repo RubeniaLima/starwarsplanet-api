@@ -23,6 +23,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 
@@ -110,5 +111,10 @@ public class PlanetServiceTest {
     public void removePlanet_WithExistingId_doesNotThrowAnyException(){
         assertThatCode(()-> planetService.remove(1L)).doesNotThrowAnyException();
 
+    }
+    @Test
+    public void removePlanet_WithUnexistingId_ThrowsException(){
+        doThrow(new RuntimeException()).when(planetRepository).deleteById(99L);
+        assertThatThrownBy(()-> planetService.remove(99L)).isInstanceOf(RuntimeException.class);
     }
 }
