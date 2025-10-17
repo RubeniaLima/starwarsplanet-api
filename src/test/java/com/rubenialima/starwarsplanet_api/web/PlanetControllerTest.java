@@ -61,5 +61,12 @@ public class PlanetControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnprocessableEntity());
     }
+
+    @Test
+    public void createPlanet_WithExistingName_ReturnsConflict(){
+
+    }
 }
+
+
 
