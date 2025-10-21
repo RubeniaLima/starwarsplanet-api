@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.net.URI;
+import java.util.Optional;
 
 @WebMvcTest(PlanetController.class)
 public class PlanetControllerTest {
@@ -73,6 +75,14 @@ public class PlanetControllerTest {
                         post("/planets").content(objectMapper.writeValueAsString(PLANET))
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void getPlanet_ByExistingId_ReturnsPlanet() throws Exception{
+        when(planetService.get(1L)).thenReturn(Optional.of(PLANET));
+        mockMvc.perform(get("/planets"))
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("$").value(PLANET));
     }
 
 }

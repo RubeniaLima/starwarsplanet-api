@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.Mockito.when;
 
 
 @DataJpaTest
@@ -47,4 +48,5 @@ public class PlanetRepositoryTest {
         assertThatThrownBy(()-> planetRepository.save(planet)).isInstanceOf(RuntimeException.class);
 
     }
+
 }
