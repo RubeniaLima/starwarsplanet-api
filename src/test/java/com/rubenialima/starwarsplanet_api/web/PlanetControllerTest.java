@@ -84,6 +84,12 @@ public class PlanetControllerTest {
                 .andExpect(status().isOk())
                 .andExpect((ResultMatcher) jsonPath("$").value(PLANET));
     }
+    @Test
+    public void getPlanet_ByUnexistingId_ReturnsNotFound() throws Exception{
+        mockMvc.perform(get("/planets/1"))
+                .andExpect(status().isNotFound());
+    }
+
 
 }
 
