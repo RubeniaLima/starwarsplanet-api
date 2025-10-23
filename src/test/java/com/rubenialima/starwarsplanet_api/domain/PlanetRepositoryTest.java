@@ -55,5 +55,7 @@ public class PlanetRepositoryTest {
     public void getPlanet_ByExistingId_ReturnsPlanet(){
         Planet planet = testEntityManager.persistFlushFind(PLANET);
         Optional<Planet> planetOpt = planetRepository.findById(planet.getId());
+        assertThat(planetOpt).isNotEmpty();
+        assertThat(planetOpt.get()).isEqualTo(planet);
     }
 }
