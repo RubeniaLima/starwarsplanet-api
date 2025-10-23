@@ -58,4 +58,9 @@ public class PlanetRepositoryTest {
         assertThat(planetOpt).isNotEmpty();
         assertThat(planetOpt.get()).isEqualTo(planet);
     }
+
+    @Test
+    public void getPlanet_ByUnexistingId_ReturnsEmpty(){
+        Optional<Planet> planetOpt = planetRepository.findById(1L);
+    }
 }
