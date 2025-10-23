@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import java.util.Optional;
+
 import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -49,4 +51,9 @@ public class PlanetRepositoryTest {
 
     }
 
+    @Test
+    public void getPlanet_ByExistingId_ReturnsPlanet(){
+        Planet planet = testEntityManager.persistFlushFind(PLANET);
+        Optional<Planet> planetOpt = planetRepository.findById(planet.getId());
+    }
 }
