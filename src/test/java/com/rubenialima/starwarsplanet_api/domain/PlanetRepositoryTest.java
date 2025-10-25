@@ -1,5 +1,6 @@
 package com.rubenialima.starwarsplanet_api.domain;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -21,6 +22,10 @@ public class PlanetRepositoryTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
+    @AfterEach
+    public void afterEach(){
+        PLANET.setId(null);
+    }
     @Test
     public void createPlanet_WithValidData_ReturnsPlanet(){
        Planet planet= planetRepository.save(PLANET);
@@ -62,5 +67,6 @@ public class PlanetRepositoryTest {
     @Test
     public void getPlanet_ByUnexistingId_ReturnsEmpty(){
         Optional<Planet> planetOpt = planetRepository.findById(1L);
+        assertThat(planetOpt).isNotEmpty();
     }
 }
