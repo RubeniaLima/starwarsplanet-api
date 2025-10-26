@@ -67,6 +67,6 @@ public class PlanetRepositoryTest {
     @Test
     public void getPlanet_ByUnexistingId_ReturnsEmpty(){
         Optional<Planet> planetOpt = planetRepository.findById(1L);
-        assertThat(planetOpt).isNotEmpty();
+        assertThat(planetOpt).isEmpty();
     }
 }
