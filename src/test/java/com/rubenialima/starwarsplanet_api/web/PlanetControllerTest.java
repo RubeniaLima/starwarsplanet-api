@@ -104,6 +104,11 @@ public class PlanetControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    public void listPlanets_ReturnsNoPlanets() throws Exception{
+
+    }
+
 }
 
 
