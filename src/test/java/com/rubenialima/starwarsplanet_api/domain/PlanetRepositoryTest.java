@@ -84,4 +84,13 @@ public class PlanetRepositoryTest {
         Optional<Planet> planetOpt = planetRepository.findByName("name");
         assertThat(planetOpt).isEmpty();
     }
+
+    @Test
+    public void listPlanets_ReturnsFilteredPlanets() throws Exception{
+
+    }
+    @Test
+    public void listPlanets_ReturnsNoPlanets() throws Exception{
+
+    }
 }
