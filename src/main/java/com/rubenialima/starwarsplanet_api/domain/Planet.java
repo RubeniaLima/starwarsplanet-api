@@ -37,6 +37,9 @@ public class Planet {
     public Planet(String climate, String terrain) {
     }
 
+    public Planet(long l, String tatooine, String arid, String desert) {
+    }
+
     public Long getId() {
         return id;
     }
