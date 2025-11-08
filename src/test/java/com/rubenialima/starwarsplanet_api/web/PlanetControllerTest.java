@@ -1,6 +1,7 @@
 package com.rubenialima.starwarsplanet_api.web;
 
-import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
+import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.*;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @WebMvcTest(PlanetController.class)
@@ -106,6 +108,22 @@ public class PlanetControllerTest {
 
     @Test
     public void listPlanets_ReturnsFilteredPlanets() throws Exception{
+
+        when(planetService.list(null, null)).thenReturn(PLANETS);
+        when(planetService.list(TATOOINE.getTerrain(), TATOOINE.getClimate())).thenReturn(List.of(TATOOINE));
+
+        mockMvc
+                .perform(
+                        get("/planets"))
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("$", hasSize(3)));
+
+        mockMvc
+                .perform(
+                        get("/planets?" + String.format("terrain=%s&climate=%s", TATOOINE.getTerrain(), TATOOINE.getClimate())))
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("$", hasSize(1)))
+                .andExpect((ResultMatcher) jsonPath("$[0]").value(TATOOINE));
 
     }
     @Test
