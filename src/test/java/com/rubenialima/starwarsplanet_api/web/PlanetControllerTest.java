@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rubenialima.starwarsplanet_api.domain.Planet;
 import com.rubenialima.starwarsplanet_api.domain.PlanetService;
@@ -24,6 +23,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,7 +128,12 @@ public class PlanetControllerTest {
     }
     @Test
     public void listPlanets_ReturnsNoPlanets() throws Exception{
+        when(planetService.list(null, null)).thenReturn(Collections.emptyList());
 
+        mockMvc
+                .perform(get("/planets/name/" + PLANET.getName()))
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("$",hasSize(3)));
     }
 
 }
