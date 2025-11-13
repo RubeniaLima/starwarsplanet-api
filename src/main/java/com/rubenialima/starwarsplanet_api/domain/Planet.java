@@ -40,6 +40,9 @@ public class Planet {
     public Planet(long l, String tatooine, String arid, String desert) {
     }
 
+    public Planet(Planet planet) {
+    }
+
     public Long getId() {
         return id;
     }
