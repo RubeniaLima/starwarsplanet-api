@@ -91,7 +91,7 @@ public class PlanetRepositoryTest {
 
     @Sql(scripts = "/import_planets.sql")
     @Test
-    public void listPlanets_ReturnsFilteredPlanets() throws Exception{
+    public void listPlanets_ReturnsFilteredPlanets() {
         Example<Planet> queryWithoutFilters = QueryBuilder.makeQuery(new Planet());
         Example<Planet> queryWithFilters = QueryBuilder.makeQuery(new Planet(new Planet(TATOOINE.getClimate(),TATOOINE.getTerrain())));
 
@@ -106,7 +106,10 @@ public class PlanetRepositoryTest {
 
     }
     @Test
-    public void listPlanets_ReturnsNoPlanets() throws Exception{
+    public void listPlanets_ReturnsNoPlanets() {
+        Example<Planet> query = QueryBuilder.makeQuery(new Planet());
 
+        List<Planet> response = planetRepository.findAll(query);
+        assertThat(response).isEmpty();
     }
 }
