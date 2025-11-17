@@ -138,6 +138,11 @@ public class PlanetControllerTest {
                 .andExpect(jsonPath("$",hasSize(0)));
     }
 
+    @Test
+    public void removePlanet_WithExistingId_ReturnsNOContent() throws Exception{
+
+    }
+
 }
 
 
