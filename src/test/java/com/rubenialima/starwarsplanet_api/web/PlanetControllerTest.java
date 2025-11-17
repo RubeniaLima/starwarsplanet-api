@@ -5,9 +5,8 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -139,8 +138,8 @@ public class PlanetControllerTest {
     }
 
     @Test
-    public void removePlanet_WithExistingId_ReturnsNOContent() throws Exception{
-
+    public void removePlanet_WithExistingId_ReturnsNoContent() throws Exception{
+        mockMvc.perform(delete("/planets/1")).andExpect(status().isNoContent());
     }
 
 }
