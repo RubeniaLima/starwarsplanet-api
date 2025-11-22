@@ -149,10 +149,11 @@ public class PlanetControllerTest {
         final Long planetId = 1L;
         doThrow(new EmptyResultDataAccessException(1)).when(planetService).remove(planetId);
 
-        mockMvc.perform(delete("/planets/"+planetId))
+        mockMvc.perform(delete("/planets/"+ planetId))
                 .andExpect(status().isNotFound());
 
     }
+
 
 }
 

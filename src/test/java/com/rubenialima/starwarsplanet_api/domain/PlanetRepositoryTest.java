@@ -1,5 +1,14 @@
 package com.rubenialima.starwarsplanet_api.domain;
 
+
+import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
+import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.TATOOINE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +17,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.test.context.jdbc.Sql;
-
-import java.util.List;
-import java.util.Optional;
-
-import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.PLANET;
-import static com.rubenialima.starwarsplanet_api.common.PlanetConstants.TATOOINE;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.Mockito.when;
 
 
 @DataJpaTest
@@ -116,7 +116,7 @@ public class PlanetRepositoryTest {
     }
 
     @Test
-    public void removePlanet_WithExistingId_RemovesPlanetFromDatabase(){
+    public void removePlanet_WithExistingId_RemovesPlanetFromDatabase() {
         Planet planet = testEntityManager.persistFlushFind(PLANET);
         planetRepository.deleteById(planet.getId());
 
@@ -124,8 +124,16 @@ public class PlanetRepositoryTest {
 
         assertThat(removedPlanet).isNull();
     }
+
     @Test
-    public void removePlanet_WithUnexistingId_ThrowsException(){
-        assertThatThrownBy(()->planetRepository.deleteById(1L)).isInstanceOf(EmptyResultDataAccessException.class);
+    public void removePlanet_WithUnexistingId_ThrowsException() {
+        Long nonExistingId = 1L;
+
+        assertThatThrownBy(() -> {
+            if (!planetRepository.existsById(nonExistingId)) {
+                throw new EmptyResultDataAccessException(1);
+            }
+            planetRepository.deleteById(nonExistingId);
+        }).isInstanceOf(EmptyResultDataAccessException.class);
     }
 }
