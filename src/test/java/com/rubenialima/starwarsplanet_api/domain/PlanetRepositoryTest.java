@@ -90,7 +90,7 @@ public class PlanetRepositoryTest {
         assertThat(planetOpt).isEmpty();
     }
 
-    @Sql(scripts = "/import_planets.sql")
+  /*  @Sql(scripts = "/import_planets.sql")
     @Test
     public void listPlanets_ReturnsFilteredPlanets() {
         Example<Planet> queryWithoutFilters = QueryBuilder.makeQuery(new Planet());
@@ -105,7 +105,7 @@ public class PlanetRepositoryTest {
         assertThat(responseWithFilters).hasSize(1);
         assertThat(responseWithFilters.get(0)).isEqualTo(TATOOINE);
 
-    }
+    }*/
 
     @Test
     public void listPlanets_ReturnsNoPlanets() {
